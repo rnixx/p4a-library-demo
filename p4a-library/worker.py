@@ -1,6 +1,8 @@
 print('WORKER ##### ***************** #######################')
 
 import time
-time.sleep(1)
+print(time.time())
+time.sleep(3)
+print(time.time())
 
-print('WORKER ENDS!')
+print('########### WORKER ENDS!')
