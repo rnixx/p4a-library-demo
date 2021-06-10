@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kivy.kivynativeactivity.ServiceEcho
+import org.kivy.kivynativeactivity.EchoWorker
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         toast.show()
 
         val simpleWorkRequest: WorkRequest =
-            OneTimeWorkRequestBuilder<SampleWorker>()
+            OneTimeWorkRequestBuilder<EchoWorker>()
                 .build()
 
         WorkManager
