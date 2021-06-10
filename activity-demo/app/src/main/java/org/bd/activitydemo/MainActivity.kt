@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         btnSend.setEnabled(true)
     }
 
-    fun onStartWorker(v: View) {
+    fun onStartEchoWorker(v: View) {
         val text = "Hello toast!"
         val duration = Toast.LENGTH_SHORT
 
@@ -74,6 +74,22 @@ class MainActivity : AppCompatActivity() {
 
         val simpleWorkRequest: WorkRequest =
             OneTimeWorkRequestBuilder<EchoWorker>()
+                .build()
+
+        WorkManager
+            .getInstance(this)
+            .enqueue(simpleWorkRequest)
+    }
+
+    fun onStartSampleWorker(v: View) {
+        val text = "Hello toast!"
+        val duration = Toast.LENGTH_SHORT
+
+        val toast = Toast.makeText(applicationContext, text, duration)
+        toast.show()
+
+        val simpleWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<SampleWorker>()
                 .build()
 
         WorkManager
