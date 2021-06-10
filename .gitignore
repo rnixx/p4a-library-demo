@@ -1,0 +1,4 @@
+buildozer
+python-for-android
+p4a-library/.buildozer/
+p4a-library/bin/
