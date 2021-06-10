@@ -83,17 +83,12 @@ android.sdk = 28
 # android.arch = armeabi-v7a
 android.arch = arm64-v8a
 
-# (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
-# contains an 'androidx' package, or any package from Kotlin source.
-# android.enable_androidx requires android.api >= 28
-android.enable_androidx = True
-
 #
 # Python for android (p4a) specific
 #
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
-p4a.source_dir = ~/workspace/python-for-android
+p4a.source_dir = ~/p4a
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
 #p4a.local_recipes =
