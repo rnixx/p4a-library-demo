@@ -88,6 +88,9 @@ android.arch = arm64-v8a
 # android.enable_androidx requires android.api >= 28
 android.enable_androidx = True
 
+# (list) Gradle dependencies to add
+android.gradle_dependencies = androidx.work:work-runtime:2.5.0
+
 #
 # Python for android (p4a) specific
 #

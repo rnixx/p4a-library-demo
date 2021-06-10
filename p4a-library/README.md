@@ -31,3 +31,12 @@ the following steps have been done to the `buildozer.spec` file:
 in the root directory of the p4a-library:
 
     $ buildozer android debug
+
+### worker development
+
+    $ export INCLUDE_ANDROID_WORKER=1
+
+    $ cp ../python-for-android/pythonforandroid/bootstraps/common/build/build.py \
+        .buildozer/android/platform/build-arm64-v8a/dists/kivynativeactivity__arm64-v8a/build.py
+
+    $ buildozer android debug
