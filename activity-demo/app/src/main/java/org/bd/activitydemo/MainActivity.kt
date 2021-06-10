@@ -3,6 +3,10 @@ package org.bd.activitydemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.WebSockets
 import io.ktor.client.features.websocket.ws
@@ -58,5 +62,21 @@ class MainActivity : AppCompatActivity() {
         ServiceEcho.prepare(context)
         ServiceEcho.start(context, "")
         btnSend.setEnabled(true)
+    }
+
+    fun onStartWorker(v: View) {
+        val text = "Hello toast!"
+        val duration = Toast.LENGTH_SHORT
+
+        val toast = Toast.makeText(applicationContext, text, duration)
+        toast.show()
+
+        val simpleWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<SampleWorker>()
+                .build()
+
+        WorkManager
+            .getInstance(this)
+            .enqueue(simpleWorkRequest)
     }
 }
