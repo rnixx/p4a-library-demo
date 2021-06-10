@@ -89,7 +89,7 @@ android.arch = arm64-v8a
 android.enable_androidx = True
 
 # (list) Gradle dependencies to add
-android.gradle_dependencies = androidx.work:work-runtime:2.5.0
+android.gradle_dependencies = androidx.work:work-runtime:2.5.0,androidx.concurrent:concurrent-futures:1.1.0
 
 #
 # Python for android (p4a) specific

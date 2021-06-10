@@ -1,25 +1,40 @@
 package org.bd.activitydemo;
 
 import android.content.Context;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.work.ListenableWorker.Result;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+import androidx.work.ListenableWorker;
+import android.util.Log;
+import com.google.common.util.concurrent.ListenableFuture;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
+import androidx.concurrent.futures.CallbackToFutureAdapter.Completer;
 
+public class SampleWorker extends ListenableWorker implements Runnable {
+    Thread pythonThread = null;
+    Completer workCompleter = null;
 
-public class SampleWorker extends Worker {
+    public SampleWorker(Context context, WorkerParameters params) {
+        super(context, params);
+    }
 
-    public SampleWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-        super(context, workerParams);
+    @NonNull
+    @Override
+    public ListenableFuture<Result> startWork() {
+        return CallbackToFutureAdapter.getFuture(completer -> {
+            workCompleter = completer;
+            pythonThread = new Thread(this);
+            pythonThread.start();
+            return "SampleWorker started";
+        });
     }
 
     @Override
-    public Result doWork() {
-        Log.d("Python Worker", "I am the god of hell fire. And it bring you FIRE");
-
-        // Indicate whether the work finished successfully with the Result
-        return Result.success();
+    public void run() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+        }
+        Log.d("MYTHREADED WORKER", "HOHOHO");
+        workCompleter.set(Result.success());
     }
 }
