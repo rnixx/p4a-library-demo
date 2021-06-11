@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onStartEchoWorker(v: View) {
-        val text = "Hello toast!"
+        val text = "Starting EchoWorker"
         val duration = Toast.LENGTH_SHORT
 
         val toast = Toast.makeText(applicationContext, text, duration)
@@ -81,8 +81,24 @@ class MainActivity : AppCompatActivity() {
             .enqueue(simpleWorkRequest)
     }
 
+    fun onStartEchoWorker1(v: View) {
+        val text = "Starting EchoWorker1"
+        val duration = Toast.LENGTH_SHORT
+
+        val toast = Toast.makeText(applicationContext, text, duration)
+        toast.show()
+
+        val simpleWorkRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<EchoWorker1>()
+                .build()
+
+        WorkManager
+            .getInstance(this)
+            .enqueue(simpleWorkRequest)
+    }
+
     fun onStartSampleWorker(v: View) {
-        val text = "Hello toast!"
+        val text = "Starting local SampleWorker"
         val duration = Toast.LENGTH_SHORT
 
         val toast = Toast.makeText(applicationContext, text, duration)
