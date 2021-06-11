@@ -43,6 +43,9 @@ orientation = portrait
 # (list) List of service to declare
 services = echo:service.py:foreground
 
+# (list) List of workers to declare
+workers = echo:worker.py,echo:worker2.py
+
 #
 # Android specific
 #
