@@ -30,13 +30,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="144dp"
         android:enabled="false"
         android:onClick="onSend"
         android:text="send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtOutput" />
 
@@ -48,7 +48,7 @@
         android:layout_marginEnd="161dp"
         android:onClick="onStart"
         android:text="start python service"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,8 +61,8 @@
         android:layout_height="wrap_content"
         android:onClick="onStartEchoWorker"
         android:text="start echo worker"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="560dp" />
+        tools:layout_editor_absoluteX="122dp"
+        tools:layout_editor_absoluteY="471dp" />
 
     <Button
         android:id="@+id/button3"
@@ -73,5 +73,15 @@
         android:text="start sample worker"
         app:layout_constraintTop_toBottomOf="@+id/button"
         tools:layout_editor_absoluteX="113dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:onClick="onStartEcho2Worker"
+        android:text="echo 2 "
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        tools:layout_editor_absoluteX="161dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

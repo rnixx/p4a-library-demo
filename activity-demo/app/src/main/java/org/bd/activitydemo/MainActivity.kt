@@ -19,6 +19,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.android.synthetic.main.activity_main.*
+import org.kivy.kivynativeactivity.Echo2Worker
 import org.kivy.kivynativeactivity.ServiceEcho
 import org.kivy.kivynativeactivity.EchoWorker
 
@@ -81,15 +82,15 @@ class MainActivity : AppCompatActivity() {
             .enqueue(simpleWorkRequest)
     }
 
-    fun onStartEchoWorker1(v: View) {
-        val text = "Starting EchoWorker1"
+    fun onStartEcho2Worker(v: View) {
+        val text = "Starting Echo2Worker"
         val duration = Toast.LENGTH_SHORT
 
         val toast = Toast.makeText(applicationContext, text, duration)
         toast.show()
 
         val simpleWorkRequest: WorkRequest =
-            OneTimeWorkRequestBuilder<EchoWorker1>()
+            OneTimeWorkRequestBuilder<Echo2Worker>()
                 .build()
 
         WorkManager
