@@ -1,7 +1,12 @@
 package org.bd.activitydemo
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import android.view.View
 import android.widget.Toast
 import androidx.work.OneTimeWorkRequestBuilder
@@ -112,5 +117,29 @@ class MainActivity : AppCompatActivity() {
         WorkManager
             .getInstance(this)
             .enqueue(simpleWorkRequest)
+    }
+
+    private lateinit var mService: SampleBoundService
+    private var mBound: Boolean = false
+
+    private val connection = object : ServiceConnection {
+
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            val binder = service as SampleBoundService.LocalBinder
+            mService = binder.getService()
+            mBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            mBound = false
+        }
+    }
+
+    fun onStartSampleBoundService(v: View){
+        Intent(this, SampleBoundService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+
     }
 }
