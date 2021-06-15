@@ -137,9 +137,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onStartSampleBoundService(v: View){
-        Intent(this, SampleBoundService::class.java).also { intent ->
+        Intent(applicationContext, SampleBoundService::class.java).also { intent ->
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-
     }
+
+    fun onUnbindSampleBoundService(v: View){
+        println("unbinding bound  service")
+        this.unbindService(this.connection)
+    }
+
+    private lateinit var mPyService: BoundechoBoundService
+    private var mPyBound: Boolean = false
+
+    private val pyconnection = object : ServiceConnection {
+
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            val binder = service as BoundechoBoundService.LocalBinder
+            mPyService = binder.getService()
+            mPyBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            mPyBound = false
+        }
+    }
+
+    fun onStartPyBoundService(v: View){
+        Intent(applicationContext, BoundechoBoundService::class.java).also { intent ->
+            bindService(intent, pyconnection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
+    fun onUnbindPyBoundService(v: View){
+        println("unbinding python bound  service")
+        this.unbindService(this.pyconnection)
+    }
+
 }
