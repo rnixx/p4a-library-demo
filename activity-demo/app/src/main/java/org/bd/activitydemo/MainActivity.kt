@@ -25,8 +25,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kivy.kivynativeactivity.Echo2Worker
+import org.kivy.kivynativeactivity.BoundechoBoundService
 import org.kivy.kivynativeactivity.ServiceEcho
 import org.kivy.kivynativeactivity.EchoWorker
+import org.kivy.android.PythonBoundService
 
 class MainActivity : AppCompatActivity() {
 
@@ -154,7 +156,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-            val binder = service as BoundechoBoundService.LocalBinder
+            val binder = service as PythonBoundService.PythonBoundServiceBinder
             mPyService = binder.getService()
             mPyBound = true
         }

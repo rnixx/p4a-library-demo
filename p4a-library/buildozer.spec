@@ -41,7 +41,7 @@ requirements = python3, websockets
 orientation = portrait
 
 # (list) List of service to declare
-services = echo:service.py:bound,boundecho:bound_service.py:bound
+services = echo:service.py:foreground,boundecho:bound_service.py:bound
 
 # (list) List of workers to declare
 workers = echo:worker.py,echo2:worker2.py
