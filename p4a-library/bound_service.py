@@ -12,7 +12,7 @@ async def response(websocket, path):
     counter += 1
     msg = await websocket.recv()
     print("msg:", msg, counter)
-    await websocket.send("echo[%s]: %s" % (counter, msg))
+    await websocket.send("bound echo[%s]: %s" % (counter, msg))
 
 
 def start_server():

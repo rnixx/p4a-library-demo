@@ -65,6 +65,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onSendBound(v: View){
+
+        GlobalScope.launch(Dispatchers.IO) {
+            testConnection("localhost", 8082, editMessage.text.toString())
+        }
+    }
+
     fun onStart(v: View) {
         val context = applicationContext
         ServiceEcho.prepare(context)
@@ -127,8 +134,8 @@ class MainActivity : AppCompatActivity() {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-            val binder = service as SampleBoundService.LocalBinder
-            mService = binder.getService()
+//            val binder = service as SampleBoundService.LocalBinder
+//            mService = binder.getService()
             mBound = true
         }
 
@@ -159,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 //            servic
 //            mPyService = binder.getService()
             mPyBound = true
-        }
+            btnSendBound.setEnabled(true)        }
 
         override fun onServiceDisconnected(arg0: ComponentName) {
             mPyBound = false

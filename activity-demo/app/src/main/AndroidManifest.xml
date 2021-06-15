@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".SampleBoundService"></service>
+        <service android:name=".SampleBoundService"
+            android:process=":service_sampleboundservice"
+            android:exported="true">
+        </service>
 
 
     </application>
