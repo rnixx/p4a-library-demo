@@ -1,3 +1,6 @@
+print ('###################### start bound service #######################')
+
+
 import time
 import asyncio
 import websockets
