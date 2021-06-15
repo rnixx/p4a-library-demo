@@ -155,8 +155,9 @@ class MainActivity : AppCompatActivity() {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-            val binder = service as ServiceBoundecho.BoundechoBinder
-            mPyService = binder.getService()
+//            val binder = service as ServiceBoundecho.BoundechoBinder
+//            servic
+//            mPyService = binder.getService()
             mPyBound = true
         }
 
