@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onStartPyBoundService(v: View){
-        Intent(applicationContext, BoundechoBoundService::class.java).also { intent ->
+        Intent(applicationContext, ServiceBoundecho::class.java).also { intent ->
             bindService(intent, pyconnection, Context.BIND_AUTO_CREATE)
         }
     }
