@@ -29,6 +29,15 @@ import org.kivy.kivynativeactivity.ServiceBoundecho
 import org.kivy.kivynativeactivity.ServiceEcho
 import org.kivy.kivynativeactivity.EchoWorker
 
+// additional foo
+import androidx.work.Data
+import androidx.work.ListenableWorker
+import androidx.work.OneTimeWorkRequest
+import androidx.work.multiprocess.RemoteWorkerService
+import androidx.work.multiprocess.RemoteListenableWorker.ARGUMENT_CLASS_NAME
+import androidx.work.multiprocess.RemoteListenableWorker.ARGUMENT_PACKAGE_NAME
+
+
 class MainActivity : AppCompatActivity() {
 
     val client = HttpClient {
@@ -79,13 +88,42 @@ class MainActivity : AppCompatActivity() {
         val toast = Toast.makeText(applicationContext, text, duration)
         toast.show()
 
-        val simpleWorkRequest: WorkRequest =
-            OneTimeWorkRequestBuilder<EchoWorker>()
-                .build()
+        // val simpleWorkRequest: WorkRequest =
+        //     OneTimeWorkRequestBuilder<EchoWorker>()
+        //         .build()
 
-        WorkManager
-            .getInstance(this)
-            .enqueue(simpleWorkRequest)
+        // WorkManager
+        //     .getInstance(this)
+        //     .enqueue(simpleWorkRequest)
+
+        val serviceName = RemoteWorkerService::class.java.name
+        val componentName = ComponentName("org.bd.activitydemo", serviceName)
+
+        val oneTimeWorkRequest = buildOneTimeWorkRemoteWorkRequest(
+            componentName,
+            EchoWorker::class.java
+        )
+
+        val workManager = WorkManager.getInstance(this@MainActivity)
+        workManager?.enqueue(oneTimeWorkRequest)
+    }
+
+    private fun buildOneTimeWorkRemoteWorkRequest(
+        componentName: ComponentName
+        , listenableWorkerClass: Class<out ListenableWorker>
+    ): OneTimeWorkRequest {
+
+        // ARGUMENT_PACKAGE_NAME and ARGUMENT_CLASS_NAME are used to determine the service
+        // that a Worker binds to. By specifying these parameters, we can designate the process a
+        // Worker runs in.
+        val data: Data = Data.Builder()
+            .putString(ARGUMENT_PACKAGE_NAME, componentName.packageName)
+            .putString(ARGUMENT_CLASS_NAME, componentName.className)
+            .build()
+
+        return OneTimeWorkRequest.Builder(listenableWorkerClass)
+            .setInputData(data)
+            .build()
     }
 
     fun onStartEcho2Worker(v: View) {
@@ -155,9 +193,8 @@ class MainActivity : AppCompatActivity() {
 
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-//            val binder = service as ServiceBoundecho.BoundechoBinder
-//            servic
-//            mPyService = binder.getService()
+            // val binder = service as ServiceBoundecho.BoundechoBinder
+            // mPyService = binder.getService()
             mPyBound = true
         }
 

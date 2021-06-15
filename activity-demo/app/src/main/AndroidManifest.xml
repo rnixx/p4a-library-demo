@@ -20,6 +20,10 @@
         </activity>
         <service android:name=".SampleBoundService"></service>
 
+        <service
+            android:name="androidx.work.multiprocess.RemoteWorkerService"
+            android:exported="false"
+            android:process=":remote_worker_service" />
 
     </application>
 
