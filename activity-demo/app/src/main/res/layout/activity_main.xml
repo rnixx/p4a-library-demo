@@ -38,9 +38,9 @@
         android:enabled="false"
         android:onClick="onSend"
         android:text="send"
-        app:layout_constraintBottom_toTopOf="@+id/start"
-        app:layout_constraintEnd_toEndOf="@+id/start"
-        app:layout_constraintStart_toStartOf="@+id/start"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendBound"
+        app:layout_constraintEnd_toEndOf="@+id/btnSendBound"
+        app:layout_constraintStart_toStartOf="@+id/btnSendBound"
         app:layout_constraintTop_toBottomOf="@+id/txtOutput" />
 
     <Button
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/btnSend" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSendBound" />
 
     <Button
         android:id="@+id/button"
@@ -119,5 +119,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/btnSendBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:onClick="onSendBound"
+        android:text="send bound"
+        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintEnd_toEndOf="@+id/start"
+        app:layout_constraintStart_toStartOf="@+id/start"
+        app:layout_constraintTop_toBottomOf="@+id/btnSend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,6 +74,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onSendBound(v: View){
+
+        GlobalScope.launch(Dispatchers.IO) {
+            testConnection("localhost", 8082, editMessage.text.toString())
+        }
+    }
+
     fun onStart(v: View) {
         val context = applicationContext
         ServiceEcho.prepare(context)
@@ -195,6 +202,7 @@ class MainActivity : AppCompatActivity() {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             // val binder = service as ServiceBoundecho.BoundechoBinder
             // mPyService = binder.getService()
+            btnSendBound.setEnabled(true)
             mPyBound = true
         }
 
