@@ -7,11 +7,12 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.WorkRequest
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.work.*
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.WebSockets
 import io.ktor.client.features.websocket.ws
@@ -30,12 +31,10 @@ import org.kivy.kivynativeactivity.ServiceEcho
 import org.kivy.kivynativeactivity.EchoWorker
 
 // additional foo
-import androidx.work.Data
-import androidx.work.ListenableWorker
-import androidx.work.OneTimeWorkRequest
 import androidx.work.multiprocess.RemoteWorkerService
 import androidx.work.multiprocess.RemoteListenableWorker.ARGUMENT_CLASS_NAME
 import androidx.work.multiprocess.RemoteListenableWorker.ARGUMENT_PACKAGE_NAME
+import com.google.common.util.concurrent.ListenableFuture
 
 
 class MainActivity : AppCompatActivity() {
@@ -112,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         val workManager = WorkManager.getInstance(this@MainActivity)
-        workManager?.enqueue(oneTimeWorkRequest)
+        val result: Operation = workManager?.enqueue(oneTimeWorkRequest)
     }
 
     private fun buildOneTimeWorkRemoteWorkRequest(
@@ -160,9 +159,29 @@ class MainActivity : AppCompatActivity() {
             OneTimeWorkRequestBuilder<SampleWorker>()
                 .build()
 
-        WorkManager
+        val operation: Operation = WorkManager
             .getInstance(this)
             .enqueue(simpleWorkRequest)
+
+        Toast.makeText(applicationContext, "operation enqueued", duration).show()
+
+        // to observe the result
+        // in this example we intentionally bind on applicationContext to demonstrate
+        // worker use in background tasks
+
+        val workManager = WorkManager.getInstance(applicationContext)
+        val status: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(simpleWorkRequest.getId())
+
+        class WMObserver: Observer<WorkInfo> {
+            override fun onChanged(it: WorkInfo) {
+                if(it.state.name == "SUCCEEDED") {
+                    Toast.makeText(applicationContext, "Success!!!", duration).show()
+                    status.removeObserver(this)
+                }
+                Log.d("SampleWorker", "Result incoming: ${it.state.name}")
+            }
+        }
+        status.observeForever(WMObserver())
     }
 
     private lateinit var mService: SampleBoundService

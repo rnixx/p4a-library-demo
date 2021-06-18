@@ -24,6 +24,9 @@ public class SampleWorker extends ListenableWorker implements Runnable {
             workCompleter = completer;
             pythonThread = new Thread(this);
             pythonThread.start();
+            Log.d("SampleWorker", "thread started");
+            pythonThread.join();
+            Log.d("SampleWorker", "thread finished");
             return "SampleWorker started";
         });
     }
@@ -31,10 +34,11 @@ public class SampleWorker extends ListenableWorker implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
+            Log.d("SampleWorker", "interruped: " + e);
         }
-        Log.d("MYTHREADED WORKER", "HOHOHO");
+        Log.d("SampleWorker", "HOHOHO");
         workCompleter.set(Result.success());
     }
 }
