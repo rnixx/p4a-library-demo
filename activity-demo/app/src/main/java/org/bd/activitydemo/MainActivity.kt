@@ -110,8 +110,23 @@ class MainActivity : AppCompatActivity() {
             EchoWorker::class.java
         )
 
-        val workManager = WorkManager.getInstance(this@MainActivity)
+//        val workManager = WorkManager.getInstance(this@MainActivity)
+        val workManager = WorkManager.getInstance(applicationContext)
         val result: Operation = workManager?.enqueue(oneTimeWorkRequest)
+        val status: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(oneTimeWorkRequest.getId())
+
+        class WMObserver: Observer<WorkInfo> {
+            override fun onChanged(it: WorkInfo) {
+                if(it.state.name == "SUCCEEDED") {
+                    Toast.makeText(applicationContext, "Success!!!", duration).show()
+                    status.removeObserver(this)
+                } else {
+                    Toast.makeText(applicationContext, "No success: ${it.state.name}", duration).show()
+                }
+                Log.d("SampleWorker", "Result incoming: ${it.state.name}")
+            }
+        }
+        status.observeForever(WMObserver())
     }
 
     private fun buildOneTimeWorkRemoteWorkRequest(

@@ -6,3 +6,8 @@ time.sleep(3)
 print(time.time())
 
 print('########### WORKER ENDS!')
+
+# raise("shit!")
+
+raise Exception("shit")
+
