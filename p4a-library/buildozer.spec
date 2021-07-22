@@ -64,7 +64,7 @@ fullscreen = 0
 android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
-android.api = 28
+android.api = 30
 
 # (int) Minimum API your APK will support.
 android.minapi = 23
@@ -73,7 +73,7 @@ android.minapi = 23
 android.sdk = 28
 
 # (str) Android NDK version to use
-#android.ndk = 17c
+android.ndk = 21e
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
